@@ -1,4 +1,5 @@
 package com.electronicshop.service.impl;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -9,21 +10,20 @@ import com.electronicshop.entity.User;
 import com.electronicshop.repository.UserRepository;
 
 @Service
-public class UserSecurityService implements UserDetailsService {
+public class UserSecurityService implements UserDetailsService{
+	
 	@Autowired
 	private UserRepository userRepository;
-
+	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		// TODO Auto-generated method stub
-		User user =  userRepository.findByUsername(username);
+		User user = userRepository.findByUsername(username);
 		
-		if (user == null) {
+		if(null == user) {
 			throw new UsernameNotFoundException("Username not found");
 		}
+		
 		return user;
 	}
-
-
 
 }

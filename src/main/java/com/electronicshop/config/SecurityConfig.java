@@ -1,8 +1,8 @@
 package com.electronicshop.config;
 
-import org.hibernate.cfg.Environment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,9 +16,8 @@ import com.electronicshop.utility.SecurityUtility;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
-public class SecurityConfig extends WebSecurityConfigurerAdapter{
-	
+@EnableGlobalMethodSecurity(prePostEnabled=true)
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private Environment env;
 	
@@ -29,47 +28,36 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		return SecurityUtility.passwordEncoder();
 	}
 	
-   
-	
-	public static final String[] PUBLIC_MATCHER= {
-			"/",
-			"/CSS/**",
+	private static final String[] PUBLIC_MATCHERS = {
+			"/css/**",
 			"/js/**",
 			"/image/**",
-			"/myAccount"			
+			"/",
+			"/myAccount"
 	};
 	
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http
+			.authorizeRequests().
+		/*	antMatchers("/**").*/
+			antMatchers(PUBLIC_MATCHERS).
+			permitAll().anyRequest().authenticated();
+		
+		http
+			.csrf().disable().cors().disable()
+			.formLogin().failureUrl("/login?error").defaultSuccessUrl("/")
+			.loginPage("/login").permitAll()
+			.and()
+			.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+			.logoutSuccessUrl("/?logout").deleteCookies("remember-me").permitAll()
+			.and()
+			.rememberMe();
+	}
 	
 	@Autowired
-	protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userSecurityService).passwordEncoder(passwordEncoder());
 	}
 	
-	@Override
-	public void configure(HttpSecurity http) throws Exception {
-		
-		http.authorizeRequests()
-		.antMatchers(PUBLIC_MATCHER).permitAll()
-		.anyRequest().authenticated();
-		
-		http.csrf().disable().cors().disable().formLogin()
-		.failureUrl("login?error").defaultSuccessUrl("/")
-		.loginPage("/login").permitAll()
-		.and()
-		.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-		.logoutSuccessUrl("/?logout").deleteCookies("remember-me").permitAll()
-		.and()
-		.rememberMe();
-		
-		
-	}
-
-	
-	
-	
-	
-	
-	
-	
-
 }
