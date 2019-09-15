@@ -50,7 +50,20 @@ public class HomeController {
 
 	@RequestMapping("/newuser")
 	public String newUser(Local local, @RequestParam("token") String token, Model theModel) {
-		theModel.addAttribute("ClassActiveNewAccount", true);
-		return "myAccount";
+		PasswordResetToken passwordResetToken = userService.getPasswordResetToken(token);
+		if (passwordResetToken == null) {
+			String massage = "invalid Token";
+			theModel.addAttribute("massage", massage);
+			return "redirect:/badRequest";
+		}
+		User user = passwordResetToken.getUser();
+
+		String username = user.getUsername();
+		UserDetails userDetails = userSecurityService.loadUserByUsername(username);
+		Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(),
+				userDetails.getAuthorities());
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		theModel.addAttribute("ClassActiveedit", true);
+		return "myProfile";
 	}
 }
