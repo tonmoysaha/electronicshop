@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.core.Local;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,6 +27,7 @@ import com.electronicshop.entity.security.Role;
 import com.electronicshop.entity.security.UserRole;
 import com.electronicshop.service.UserService;
 import com.electronicshop.service.impl.UserSecurityService;
+import com.electronicshop.utility.MailConstructor;
 import com.electronicshop.utility.SecurityUtility;
 
 @Controller
@@ -36,6 +38,12 @@ public class HomeController {
 
 	@Autowired
 	private UserSecurityService userSecurityService;
+	
+	@Autowired
+	private MailConstructor mailConstructor;
+	
+	@Autowired
+	private JavaMailSender mailSender;
 
 	@RequestMapping("/")
 	public String index() {
@@ -98,8 +106,13 @@ public class HomeController {
 		      
 		      String appUrl = "http://"+ request.getServerName()+":"+request.getServerPort()+request.getContextPath();
 		      
-		     // SimpleMailMessage email = mailConstructor.co
-				
+		     SimpleMailMessage email = mailConstructor.constructResetToken(appUrl, request.getLocale(), token, user, encryptedPassword);
+		     
+		     mailSender.send(email);
+		     
+		     model.addAttribute("emailSent", true);
+		     
+		     return "myAccount";
 		
 	}
 
