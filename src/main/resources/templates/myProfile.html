@@ -9,7 +9,9 @@
 		<div class="row" style="margin-bottom: -100px;">
 			<div class="col-xs-8">
 				<h2 class="section-headline">
-					<span>User Account</span>
+					<h2 class="section-headline">
+						<span th:text="${#strings.toUpperCase{user.username}}"></span>
+					</h2>
 				</h2>
 			</div>
 			<div class="col-xs-4">
@@ -26,41 +28,86 @@
 
 				<!-- Nav tabs -->
 				<ul class="nav nav-tabs">
-					<li th:classappend ="${ClassActiveNewAccount}? 'active'"><a href="#tab-1" data-toggle="tab"><span
-							style="color: red;">Create new account</span></a></li>
-					<li th:classappend ="${ClassActiveLogin}? 'active'"><a href="#tab-2" data-toggle="tab"><span
-							style="color: red;">Log in</span></a></li>
-					<li th:classappend ="${ClassActiveForgetPassword}? 'active'"><a href="#tab-3" data-toggle="tab"><span
-							style="color: red;">Forget Password</span></a></li>
+					<li th:classappend="${ClassActiveEdit}? 'active'"><a
+						href="#tab-1" data-toggle="tab"><span style="color: red;">Edit</span></a></li>
+					<li th:classappend="${ClassActiveOrders}? 'active'"><a
+						href="#tab-2" data-toggle="tab"><span style="color: red;">Orders</span></a></li>
+					<li th:classappend="${ClassActiveBilling}? 'active'"><a
+						href="#tab-3" data-toggle="tab"><span style="color: red;">Billing</span></a></li>
+					<li th:classappend="${ClassActiveShipping}? 'active'"><a
+						href="#tab-3" data-toggle="tab"><span style="color: red;">Shipping</span></a></li>
 				</ul>
 
 				<!-- Tab panels -->
 				<div class="tab-content">
 
-					<!-- create new user pane -->
-					<div class="tab-pane fade" id="tab-1" th:classappend ="${ClassActiveNewAccount}? 'in active'">
+					<!-- edit user information -->
+					<div class="tab-pane fade" id="tab-1"
+						th:classappend="${ClassActiveEdit}? 'in active'">
 						<div class="panel-group">
 							<div class="panel panel-default" style="border: none;">
 								<div class="panel-body"
 									style="background-color: #ededed; margin-top: 20px;">
-									<form>
-										<div class="form-group">
-											<label for="newUsername">* Username: </label> <input
-												required="required" type="text" class="form-control"
-												id="newUsername" name="username" />
-											<p style="color: #828282">Enter your username here.</p>
-										</div>
+									<form th:action="@{/updateUserInfo}" action="post">
+
+										<input type="hidden" name="id" th:value="${user.id}">
+
+										<div class="bg-info" th:if="${updateUserInfo}">User Info
+											Updated</div>
 
 										<div class="form-group">
-											<label for="email">* Email Address: </label> <input
-												required="required" type="text" class="form-control"
-												id="email" name="email" />
-											<p style="color: #828282">A valid email address. All
+											<div class="row">
+												<div class="col-xs-6">
+													<label for="firstName"> First Name</label> <input
+														type="text" class="form-control" id="firstName"
+														name="firstName" th:value="${user.firstName}" />
+												</div>
+
+												<div class="col-xs-6">
+													<label for="lastName"> Last Name</label> <input type="text"
+														class="form-control" id="lastName" name="lastName"
+														th:value="${user.lastName}" />
+												</div>
+
+											</div>
+										</div>
+
+
+										<div class="form-group">
+											<label for="username"> User Name</label> <input type="text"
+												class="form-control" id="username" name="username"
+												th:value="${user.username}" />
+										</div>
+										
+										<div class="form-group">
+											<label for="currentPassword"> Current Password</label> <input type="password"
+												class="form-control" id="currentPassword" name="currentPassword"
+												th:value="${currentPassword}" />
+										</div>
+										<p style="color: red;">Enter your current password to change the email address or password</p>
+										
+										<div class="form-group">
+											<label for="email"> Email Address</label> <input type="text"
+												class="form-control" id="email" name="email"
+												th:value="${user.email}" />
+										</div>
+										<p style="color: red;">A valid email address. All
 												emails from the system withll be sent to this address. The
 												email address is not made public and will only be used if
 												you wish to receive a new password or wish to receive
-												certain notification.</p>
+												certain notification</p>
+												
+										<div class="form-group">
+											<label for="txtNewPassword"> password</label> <input type="password"
+												class="form-control" id="newPassword" name="newPassword"/>
 										</div>
+										
+										<div class="form-group">
+											<label for="txtConfirmPassword"> password</label> <input type="password"
+												class="form-control" id="txtConfirmPassword"/>
+										</div>
+										<p  style="color: red;">To change the current user password, enter the new password in both fields.</p>
+
 
 										<button type="submit" class="btn btn-primary">Create
 											new account</button>
@@ -70,56 +117,8 @@
 						</div>
 					</div>
 
-					<!-- log in -->
-					<div class="tab-pane fade" id="tab-2" th:classappend ="${ClassActiveLogin}? 'in active'">
-						<div class="panel-group">
-							<div class="panel panel-default" style="border: none;">
-								<div class="panel-body"
-									style="background-color: #ededed; margin-top: 20px;">
-									<form>
-										<div class="form-group">
-											<label for="newUsername">* Username: </label> <input
-												required="required" type="text" class="form-control"
-												id="newUsername" name="username" />
-											<p style="color: #828282">Enter your username here.</p>
-										</div>
-
-										<div class="form-group">
-											<label for="password">* Password: </label> <input
-												required="required" type="password" class="form-control"
-												id="password" name="password" />
-											<p style="color: #828282">Enter the password that
-												accompanies your username</p>
-										</div>
-
-										<button type="submit" class="btn btn-primary">Log in</button>
-									</form>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<!-- forget password -->
-					<div class="tab-pane fade" id="tab-3"  th:classappend ="${ClassActiveForgetPassword}? 'in active'">
-						<div class="panel-group">
-							<div class="panel panel-default" style="border: none;">
-								<div class="panel-body"
-									style="background-color: #ededed; margin-top: 20px;">
-									<form>
-										<div class="form-group">
-											<label for="recoverEmail">* Your Email: </label> <input
-												required="required" type="text" class="form-control"
-												id="recoverEmail" name="email" />
-											<p style="color: #828282">Enter your registered email
-												address here.</p>
-										</div>
-
-										<button type="submit" class="btn btn-primary">Submit</button>
-									</form>
-								</div>
-							</div>
-						</div>
-					</div>
+			
+				
 				</div>
 			</div>
 		</div>

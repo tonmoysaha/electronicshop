@@ -1,6 +1,7 @@
 package com.electronicshop.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -17,6 +18,7 @@ import com.electronicshop.utility.SecurityUtility;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled=true)
+@ComponentScan("com.electronicshop")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private Environment env;
