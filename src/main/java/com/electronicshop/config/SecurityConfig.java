@@ -18,7 +18,6 @@ import com.electronicshop.utility.SecurityUtility;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled=true)
-@ComponentScan("com.electronicshop")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private Environment env;
@@ -35,7 +34,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/js/**",
 			"/image/**",
 			"/",
-			"/myAccount"
+			"/newuser",
+			"/forgetpassword",
+			"/login",
+			"/fonts/**"
+			
 	};
 	
 	@Override

@@ -2,6 +2,8 @@ package com.electronicshop.service.impl;
 
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,8 @@ import com.electronicshop.service.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {
+	
+	private static final Logger Log= LoggerFactory.getLogger(UserService.class);
 	
 	@Autowired
 	private UserRepository userRepository;
@@ -57,7 +61,7 @@ public class UserServiceImpl implements UserService {
 		User localUser = userRepository.findByUsername(user.getUsername());
 		
 		if (localUser != null) {
-			throw new Exception("user aready exists. nothing will be done");
+			Log.info("user aready exists. nothing will be done.",user.getUsername());
 		}else {
 			for (UserRole userRole : userRoles) {
 				RoleRepository.save(userRole.getRole());
@@ -66,6 +70,12 @@ public class UserServiceImpl implements UserService {
 			localUser = userRepository.save(user);
 		}
 		return localUser;
+	}
+
+	@Override
+	public User save(User user) {
+		// TODO Auto-generated method stub
+		return userRepository.save(user);
 	}
 
 }
