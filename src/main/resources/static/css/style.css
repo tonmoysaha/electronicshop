@@ -12,12 +12,6 @@ body {
 .container {
 	width: 90%;
 }
-hr {
-	border: none;
-	color: #333;
-	background-color: #333;
-	height: 1px;
-}
 
 .home-headline{
 	font-family: 'Times New Roman', Times, serif;
