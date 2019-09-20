@@ -20,6 +20,7 @@ public class ElectronicProduct {
 	private String brandName;
 	private String productCode;
 	private String category;
+	private String publicationDate;
 	
 	private double shippingWeight;
 	private double listPrice;
@@ -137,6 +138,16 @@ public class ElectronicProduct {
 	public void setImage(MultipartFile image) {
 		this.image = image;
 	}
+
+	public String getPublicationDate() {
+		return publicationDate;
+	}
+
+	public void setPublicationDate(String publicationDate) {
+		this.publicationDate = publicationDate;
+	}
+	
+	
 	
 	
 	
