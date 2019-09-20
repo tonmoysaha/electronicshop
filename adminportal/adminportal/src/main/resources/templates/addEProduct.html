@@ -11,70 +11,70 @@
 			<form class="form-horizontal" th:action="@{/eproduct/add}"
 				method="post" enctype="multipart/form-data">
 				<fieldset>
-					<legend class="center-block text-center" style="color: green; 
-					 background-color: white; padding: 1%; text-decoration: underline;font-style:italic;font-weight: bold;">New
+					<legend class="center-block text-center"
+						style="color: green; background-color: white; padding: 1%; text-decoration: underline; font-style: italic; font-weight: bold;">New
 						EProduct Information</legend>
 
 					<!-- title -->
 					<div class="form-group">
-						<label class="col-md-2 control-label" for="title" style="color: black;">* Title</label>
+						<label class="col-md-2 control-label" for="title"
+							style="color: black;">* Title</label>
 						<div class="col-md-8">
-						 <input
-							type="text" name="title" class="form-control" id="title"
-							th:value="${electronicProduct.title}" required="required"
-							placeholder="Title" /> <span class="help-block">Title of
-							the EProduct</span>
-					</div>
+							<input type="text" name="title" class="form-control" id="title"
+								th:value="${electronicProduct.title}" required="required"
+								placeholder="Title" /> <span class="help-block">Title of
+								the EProduct</span>
+						</div>
 					</div>
 
 					<!-- model -->
 					<div class="form-group">
-						<label class="col-md-2 control-label" for="author" style="color: black;">* Model</label>
+						<label class="col-md-2 control-label" for="author"
+							style="color: black;">* Model</label>
 						<div class="col-md-8">
-						 <input
-							type="text" name="model" class="form-control" id="model"
-							th:value="${electronicProduct.model}" required="required"
-							placeholder="Model" /> <span class="help-block">model of
-							the EProduct</span>
-					</div>
+							<input type="text" name="model" class="form-control" id="model"
+								th:value="${electronicProduct.model}" required="required"
+								placeholder="Model" /> <span class="help-block">model of
+								the EProduct</span>
+						</div>
 					</div>
 
 					<!-- brandName -->
 					<div class="form-group">
-						<label class="col-md-2 control-label" for="brandName">* Brand Name</label>
+						<label class="col-md-2 control-label" for="brandName">*
+							Brand Name</label>
 						<div class="col-md-8">
-						 <input type="text"
-							name="brandName" class="form-control" id="brandName"
-							th:value="${electronicProduct.brandName}" required="required"
-							placeholder="BrandName" /> <span class="help-block">brandName
-							of the EProduct</span>
-					</div>
+							<input type="text" name="brandName" class="form-control"
+								id="brandName" th:value="${electronicProduct.brandName}"
+								required="required" placeholder="BrandName" /> <span
+								class="help-block">brandName of the EProduct</span>
+						</div>
 					</div>
 
 
 					<!-- publication date -->
 					<div class="form-group">
-						<label class="col-md-2 control-label" for="publicationDate" style="color: black;">Publication
-							Date</label> 
-							<div class="col-md-8">
+						<label class="col-md-2 control-label" for="publicationDate"
+							style="color: black;">Publication Date</label>
+						<div class="col-md-8">
 							<input type="date" class="form-control" id="publicationDate"
-							name="publicationDate"
-							th:value="${electronicProduct.publicationDate}"
-							placeholder="Publication Date" /> <span class="help-block">Publication
-							Date of the EProduct</span>
-					</div>
+								name="publicationDate"
+								th:value="${electronicProduct.publicationDate}"
+								placeholder="Publication Date" /> <span class="help-block">Publication
+								Date of the EProduct</span>
+						</div>
 					</div>
 
 					<!-- productCode -->
 					<div class="form-group">
-						<label class="col-md-2 control-label" for="productCode">* Product Code</label>
+						<label class="col-md-2 control-label" for="productCode">*
+							Product Code</label>
 						<div class="col-md-8">
-						 <input type="text"
-							name="productCode" class="form-control" id="productCode"
-							th:value="${electronicProduct.productCode}"
-							placeholder="ProductCode" /> <span class="help-block">productCode
-							of the EProduct</span>
-					</div>
+							<input type="text" name="productCode" class="form-control"
+								id="productCode" th:value="${electronicProduct.productCode}"
+								placeholder="ProductCode" /> <span class="help-block">productCode
+								of the EProduct</span>
+						</div>
 					</div>
 
 
@@ -169,14 +169,10 @@
 						<label class="col-xs-2 control-label" for="status"
 							style="color: black;">Status</label>
 						<div class="col-xs-8">
-							<label>
-							<input value="true" type="radio" name="active"
-								 checked="checked" />
-								 Active </label> 
-								<label><input
-								value="false" type="radio" name="active"  />
-								Inactive </label> 
-								<span class="help-block">Whether the EProduct
+							<label> <input value="true" type="radio" name="active"
+								checked="checked" /> Active
+							</label> <label><input value="false" type="radio" name="active" />
+								Inactive </label> <span class="help-block">Whether the EProduct
 								is active or inactive</span>
 						</div>
 					</div>
@@ -184,15 +180,17 @@
 
 					<!-- description -->
 					<div class="form-group">
-						<label class="col-md-2 control-label"  for="description" style="color: black;">Description</label>
+						<label class="col-md-2 control-label" for="description"
+							style="color: black;">Description</label>
 						<div class="col-md-8">
-						<textarea name="description" rows="5" cols="20"  class="form-control"
-							id="description" th:value="${electronicProduct.description}"
-							placeholder="Description"></textarea>
-						<span class="help-block">Description of the EProduct</span>
+							<textarea name="description" rows="5" cols="20"
+								class="form-control" id="description"
+								th:value="${electronicProduct.description}"
+								placeholder="Description"></textarea>
+							<span class="help-block">Description of the EProduct</span>
+						</div>
 					</div>
-					</div>
-					
+
 					<!-- upload image -->
 					<div class="form-group">
 						<div class="col-md-2" style="margin-left: 93px;">
