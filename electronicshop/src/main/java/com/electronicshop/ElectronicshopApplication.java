@@ -41,7 +41,7 @@ public class ElectronicshopApplication implements CommandLineRunner {
 		
 		Role role = new Role();
 		
-		role.setRoleId(1);
+		role.setRoleId(2);
 		role.setName("ROLE_USER");
 		userRoles.add(new UserRole(user, role));
 		

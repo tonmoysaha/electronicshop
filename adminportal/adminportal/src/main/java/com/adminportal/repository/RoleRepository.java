@@ -1,9 +1,9 @@
-package com.electronicshop.repository;
+package com.adminportal.repository;
 
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.electronicshop.entity.security.Role;
+import com.adminportal.entity.security.Role;
 
 
 public interface RoleRepository extends CrudRepository<Role, Long> {

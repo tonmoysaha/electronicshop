@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"
-	xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:fragment="common-header">
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -43,7 +44,7 @@
 					</ul>
 
 					<ul class="nav navbar-nav navbar-right">
-						<li><a style="color: white;" href="#">Sign out</a></li>
+						<li><a style="color: white;"sec:authorize="isAuthenticated()" th:href="@{/logout}">Sign out</a></li>
 					</ul>
 				</div>
 				<!-- /.navbar-collapse -->
