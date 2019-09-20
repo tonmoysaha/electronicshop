@@ -1,5 +1,7 @@
 package com.adminportal.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,5 +21,13 @@ public class ElectronicProductServiceImpl implements ElectronicProductService {
 		
 		return ElectronicProductRepository.save(electronicProduct);
 	}
+
+	@Override
+	public List<ElectronicProduct> findAll() {
+		// TODO Auto-generated method stub
+		return (List<ElectronicProduct>) ElectronicProductRepository.findAll();
+	}
+
+	
 
 }

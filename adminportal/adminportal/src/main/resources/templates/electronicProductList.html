@@ -5,8 +5,41 @@
 
 <body>
 	<div th:replace="common/header :: navbar"></div>
+	<div class="container">
+		<div class="table-responsive">
+			<table id="electronicProductsList"
+				class="table table-bordered table-hover table-striped">
+				<thead>
+					<tr>
+						<th>Title</th>
+						<th>Brand Name</th>
+						<th>Product Code</th>
+						<th>Category</th>
+						<th>List Price</th>
+						<th>Our Price</th>
+						<th>Active</th>
+						<th>Operation</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr data-th-each="electronicProduct : ${electronicProductsList}">
+						<td th:text="${electronicProduct.title}"></td>
+						<td th:text="${electronicProduct.brandName}"></td>
+						<td th:text="${electronicProduct.productCode}"></td>
+						<td th:text="${electronicProduct.category}"></td>
+						<td th:text="${electronicProduct.listPrice}"></td>
+						<td th:text="${electronicProduct.ourPrice}"></td>
+						<td th:text="${electronicProduct.active}"></td>
+						<td></td>
 
-     <h1>ElectronicProduct list</h1>
+					</tr>
+
+				</tbody>
+			</table>
+		</div>
+
+	</div>
+
 	<div th:replace="common/header :: body-bottom-scripts"></div>
 </body>
 </html>

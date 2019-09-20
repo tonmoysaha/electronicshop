@@ -39,7 +39,7 @@
 							aria-expanded="false" style="color: white;">ElectronicProducts <span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a style="color: green;" sec:authorize="isAuthenticated()"  th:href="@{/eproduct/add}">Add a new Product</a></li>
-								<li><a style="color: green;" href="#">View Product list</a></li>
+								<li><a style="color: green;" th:href="@{/eproduct/electronicProductList}">View Product list</a></li>
 							</ul></li>
 					</ul>
 

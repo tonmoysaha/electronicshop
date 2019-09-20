@@ -4,6 +4,7 @@ package com.adminportal.controller;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -58,7 +59,11 @@ public class ElectronicProductController {
 	
 	
 	@RequestMapping("/electronicProductList")
-	public String electronicProductList() {
+	public String electronicProductList(Model model) {
+		
+		List<ElectronicProduct> electronicProductsList = ElectronicProductService.findAll();
+		
+		model.addAttribute("electronicProductsList", electronicProductsList);
 		
 		return "electronicProductList";
 	}
