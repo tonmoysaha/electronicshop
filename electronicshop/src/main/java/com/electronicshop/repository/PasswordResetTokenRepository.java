@@ -1,6 +1,7 @@
 package com.electronicshop.repository;
 
 import java.util.Date;
+
 import java.util.stream.Stream;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -20,6 +21,8 @@ public interface PasswordResetTokenRepository extends JpaRepository<PasswordRese
 	@Modifying
 	@Query("delete from PasswordResetToken t where t.expiryDate <= ?1")
 	void deleteAllExpiredSince(Date now);
+	
+
 	
 	
 

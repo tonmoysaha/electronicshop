@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body>
+	<div th:replace="common/header :: navbar"></div>
+
+	<div class="container">
+		<div class="row" style="margin-bottom: -100px;">
+			<div class="col-xs-8">
+				<h2 class="section-headline">
+					<span>All ElectronicProduc</span>
+				</h2>
+			</div>
+			<div class="col-xs-4">
+				<img src="/image/images.png" class="img-responsive" />
+			</div>
+		</div>
+
+		<img class="img-responsive" src="/image/wood.png"
+			style="margin-top: -75px;" />
+
+		<form th:action="@{/shoppingCart/addItem}" method="post">
+			<input hidden="hidden" th:field="*{electronicProduct.id}" />
+
+			<div class="row" style="margin-top: 120px;">
+				<div class="col-xs-3">
+					<a th:href="@{/electronicProductShelf}">Back to Electronic
+						Product List</a> <img class="img-responsive"
+						th:src="#{adminPath}+@{image/ElectronicProduct/}+${electronicProduct.id}+'.png'" />
+				</div>
+
+				<div class="col-xs-9">
+					<h3 th:text=${electronicProduct.title}>ElectronicProduct Title</h3>
+					<div class="row">
+						<div class="col-xs-5">
+							<h5>
+								<strong>Model: </strong><span
+									th:text="${electronicProduct.model}"></span>
+							</h5>
+							<h5>
+								<strong>Brand Name: </strong><span
+									th:text="${electronicProduct.brandName}"></span>
+							</h5>
+							<h5>
+								<strong>Publication Date: </strong><span
+									th:text="${electronicProduct.publicationDate}"></span>
+							</h5>
+							<h5>
+								<strong>Category: </strong><span
+									th:text="${electronicProduct.category}"></span>
+							</h5>
+							<h5>
+								<strong>Product Code: </strong><span
+									th:text="${electronicProduct.productCode}"></span>
+							</h5>
+							<h5>
+								<strong>Shipping Weight: </strong><span
+									th:text="${electronicProduct.shippingWeight}"></span>
+							</h5>
+						</div>
+
+						<div class="col-xs-7">
+							<div class="panel panel-default"
+								style="border-width: 5px; margin-top: 20px;">
+								<div class="panel-body">
+									<div class="row">
+										<div class="col-xs-6">
+											<h4>
+												Our Price: <span style="color: gray;">Tk.</span> <span
+													th:text="${electronicProduct.ourPrice}"></span>
+											</h4>
+											<p>
+												List Price: <span style="text-decoration: line-through; color: red;">Tk.</span>
+												<span style="text-decoration: line-through; color: red;"
+													th:text="${electronicProduct.listPrice}"></span>
+											</p>
+											<p>
+												You save: Tk.<span
+													th:text="${#numbers.formatDecimal((electronicProduct.listPrice - electronicProduct.ourPrice),0, 'COMMA', 2, 'POINT')}"></span>
+											</p>
+											<span>Quantity</span> <select name="qty">
+												<option th:each="qty : ${qtyList}" th:value="${qty}"
+													th:text="${qty}"></option>
+											</select>
+										</div>
+
+										<div class="col-xs-6">
+											<h4 th:if="*{electronicProduct.inStockNumber&gt;10}"
+												style="color: green;">In Stock</h4>
+											<h4
+												th:if="*{electronicProduct.inStockNumber&lt;10 and electronicProduct.inStockNumber&gt;0}"
+												style="color: green;">
+												Only <span th:text="${electronicProduct.inStockNumber}">In
+													Stock</span>
+											</h4>
+											<h4 th:if="*{electronicProduct.inStockNumber==0}"
+												style="color: red;">Unavailable In Stock</h4>
+											<button type="submit" class="btn btn-warning"
+												style="color: black; border: 1px solid black; padding: 10px 40px 10px 40px;">Add
+												to cart</button>
+										</div>
+									</div>
+
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+					<hr style="background-color: blue; padding: 2px;" />
+					<p  th:text="${electronicProduct.description}"></p>
+
+				</div>
+
+			</div>
+
+		</form>
+
+	</div>
+	<!-- end of container -->
+
+
+	<div th:replace="common/header :: body-bottom-scripts"></div>
+</body>
+</html>
+

@@ -1,18 +1,22 @@
 package com.electronicshop.controller;
 
+import java.security.Principal;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
+
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,6 +24,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -49,7 +54,7 @@ public class HomeController {
 
 	@Autowired
 	private JavaMailSender mailSender;
-	
+
 	@Autowired
 	private ElectronicProductService ElectronicProductService;
 
@@ -69,14 +74,14 @@ public class HomeController {
 			@ModelAttribute("username") String username, Model model) {
 
 		model.addAttribute("ClassActiveForgetPassword", true);
-		
+
 		User user = userService.findByEmail(email);
-		
+
 		if (user == null) {
 			model.addAttribute("emailNotExists", true);
 			return "myAccount";
 		}
-		
+
 		String password = SecurityUtility.randomPassword();
 		String encryptedPassword = SecurityUtility.passwordEncoder().encode(password);
 		user.setPassword(encryptedPassword);
@@ -94,11 +99,9 @@ public class HomeController {
 		mailSender.send(newEmail);
 
 		model.addAttribute("forgetPasswordEmailSent", true);
-		
-		
+
 		return "myAccount";
 	}
-	
 
 	@RequestMapping(value = "/newuser", method = RequestMethod.POST)
 	public String newUserPost(HttpServletRequest request, @ModelAttribute("email") String userEmail,
@@ -159,8 +162,7 @@ public class HomeController {
 		}
 		User user = passwordResetToken.getUser();
 		String username = user.getUsername();
-		
-		
+
 		UserDetails userDetails = userSecurityService.loadUserByUsername(username);
 		Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(),
 				userDetails.getAuthorities());
@@ -171,18 +173,35 @@ public class HomeController {
 		theModel.addAttribute("classActiveEdit", true);
 		return "myProfile";
 	}
-	
+
 	@RequestMapping("/electronicProductShelf")
 	public String electronicProductShelf(Model model) {
 		List<ElectronicProduct> electronicProductList = ElectronicProductService.findAll();
-		
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		UserDetails user = (UserDetails) authentication.getPrincipal();
-		
-		model.addAttribute("user", user);
-		
-		model.addAttribute("electronicProductList",electronicProductList);
+		model.addAttribute("electronicProductList", electronicProductList);
 		return "electronicProductShelf";
-		
+
 	}
+
+	@RequestMapping("/electronicProductDetails")
+	public String electronicProductDetails(@PathParam("id") Long id, Model model, Principal principal) {
+
+		if (principal != null) {
+			String username = principal.getName();
+			User user = userService.findByUsername(username);
+			model.addAttribute("user", user);
+		}
+
+		ElectronicProduct electronicProduct = ElectronicProductService.findById(id);
+
+		model.addAttribute("electronicProduct", electronicProduct);
+
+		List<Integer> qtyList = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20);
+
+		model.addAttribute("qtyList", qtyList);
+		model.addAttribute("qty", 1);
+
+		return "electronicProductDetails";
+
+	}
+
 }

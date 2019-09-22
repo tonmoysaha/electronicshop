@@ -6,4 +6,6 @@ import com.electronicshop.entity.ElectronicProduct;
 
 public interface ElectronicProductRepository extends CrudRepository<ElectronicProduct, Long> {
 
+	
+
 }
