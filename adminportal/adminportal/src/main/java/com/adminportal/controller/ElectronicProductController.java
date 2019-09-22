@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -66,6 +67,27 @@ public class ElectronicProductController {
 		model.addAttribute("electronicProductsList", electronicProductsList);
 		
 		return "electronicProductList";
+	}
+	
+	@RequestMapping("/electronicProductDetails")
+	public String electronicProductDetails(@PathParam("id") Long id, Model model) {
+		
+		ElectronicProduct electronicProduct = ElectronicProductService.findById(id);
+		
+		model.addAttribute("electronicProduct",electronicProduct);
+		
+		return "electronicProductDetail";
+	}
+	
+	@RequestMapping(value = "/updateElectronicProduct" , method = RequestMethod.GET)
+	public String electronicProductUpdate(@PathParam("id") Long id, Model model) {
+		
+		ElectronicProduct electronicProduct = ElectronicProductService.findById(id);
+		
+		model.addAttribute("electronicProduct",electronicProduct);
+		
+		return "updateElectronicProduct";
+		
 	}
 	
 	

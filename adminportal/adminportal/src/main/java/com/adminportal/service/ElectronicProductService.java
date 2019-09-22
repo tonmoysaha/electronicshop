@@ -9,4 +9,6 @@ public interface ElectronicProductService {
 	ElectronicProduct save(ElectronicProduct electronicProduct);
 	
 	List<ElectronicProduct> findAll();
+	
+	ElectronicProduct findById(Long id);
 }

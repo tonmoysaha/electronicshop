@@ -1,0 +1,221 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body>
+	<div th:replace="common/header :: navbar"></div>
+
+	<div class="container">
+		<div class="row" style="background-color: #b2ffb2;">
+			<form class="form-horizontal" th:action="@{/eproduct/updateElectronicProduct}"
+				method="post" enctype="multipart/form-data">
+				<fieldset>
+					<legend class="center-block text-center"
+						style="color: green; background-color: white; padding: 1%; text-decoration: underline; font-style: italic; font-weight: bold;">Update
+						EProduct Information</legend>
+
+					<!-- title -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="title"
+							style="color: black;">* Title</label>
+						<div class="col-md-8">
+							<input type="text" name="title" class="form-control" id="title"
+								th:value="${electronicProduct.title}" required="required"
+								placeholder="Title" /> <span class="help-block">Title of
+								the EProduct</span>
+						</div>
+					</div>
+
+					<!-- model -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="author"
+							style="color: black;">* Model</label>
+						<div class="col-md-8">
+							<input type="text" name="model" class="form-control" id="model"
+								th:value="${electronicProduct.model}" required="required"
+								placeholder="Model" /> <span class="help-block">model of
+								the EProduct</span>
+						</div>
+					</div>
+
+					<!-- brandName -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="brandName">*
+							Brand Name</label>
+						<div class="col-md-8">
+							<input type="text" name="brandName" class="form-control"
+								id="brandName" th:value="${electronicProduct.brandName}"
+								required="required" placeholder="BrandName" /> <span
+								class="help-block">brandName of the EProduct</span>
+						</div>
+					</div>
+
+
+					<!-- publication date -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="publicationDate"
+							style="color: black;">Publication Date</label>
+						<div class="col-md-8">
+							<input type="date" class="form-control" id="publicationDate"
+								name="publicationDate"
+								th:value="${electronicProduct.publicationDate}"
+								placeholder="Publication Date" /> <span class="help-block">Publication
+								Date of the EProduct</span>
+						</div>
+					</div>
+
+					<!-- productCode -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="productCode">*
+							Product Code</label>
+						<div class="col-md-8">
+							<input type="text" name="productCode" class="form-control"
+								id="productCode" th:value="${electronicProduct.productCode}"
+								placeholder="ProductCode" /> <span class="help-block">productCode
+								of the EProduct</span>
+						</div>
+					</div>
+
+
+
+					<!-- category -->
+					<div class="form-group">
+						<label class="col-xs-2 control-label" for="category"
+							style="color: black;">* Category</label>
+						<div class="col-xs-8">
+							<select th:value="${electronicProduct.category}" id="category"
+								name="category" class="form-control">
+								<option value="" selected="selected" disabled="disabled">Please
+									select an option...</option>
+								<option value="Mobile"
+									th:selected="(${electronicProduct.category}=='Mobile')">Mobile</option>
+								<option value="refrigerator"
+									th:selected="(${electronicProduct.category}=='refrigerator')">refrigerator</option>
+								<option value="AC"
+									th:selected="(${electronicProduct.category}=='AC')">AC</option>
+								<option value="TV"
+									th:selected="(${electronicProduct.category}=='TV')">TV</option>
+								<option value="Laptop"
+									th:selected="(${electronicProduct.category}=='Laptop')">Laptop</option>
+								<option value="ElectroniAccesories"
+									th:selected="(${electronicProduct.category}=='ElectroniAccesories')">ElectroniAccesories</option>
+							</select>
+						</div>
+					</div>
+
+
+					<!-- shipping weight -->
+					<div class="form-group">
+						<label class="col-xs-2 control-label" for="shippingWeight"
+							style="color: black;">Shipping Weight</label>
+						<div class="col-xs-8">
+							<div class="input-group">
+								<input th:value="${electronicProduct.shippingWeight}"
+									type="number" name="shippingWeight" class="form-control"
+									id="shippingWeight" placeholder="Shipping Weight" /> <span
+									class="input-group-addon">Ounces</span>
+							</div>
+							<span class="help-block">Shipping Weight of the EProduct</span>
+						</div>
+					</div>
+
+					<!-- list price -->
+					<div class="form-group">
+						<label class="col-xs-2 control-label" for="listPrice"
+							style="color: black;">List Price</label>
+						<div class="col-xs-8">
+							<div class="input-group">
+								<span class="input-group-addon">Tk.</span> <input
+									th:value="${electronicProduct.listPrice}" type="number"
+									name="listPrice" class="form-control" id="listPrice"
+									placeholder="List Price" />
+							</div>
+							<span class="help-block">List price of the EProduct</span>
+						</div>
+					</div>
+
+					<!-- our price -->
+					<div class="form-group">
+						<label class="col-xs-2 control-label" for="ourPrice"
+							style="color: black;">Our Price</label>
+						<div class="col-xs-8">
+							<div class="input-group">
+								<span class="input-group-addon">Tk.</span> <input
+									th:value="${electronicProduct.ourPrice}" type="number"
+									name="ourPrice" class="form-control" id="ourPrice"
+									placeholder="Our Price" />
+							</div>
+							<span class="help-block">Our price of the EProduct</span>
+						</div>
+					</div>
+
+					<!-- in stock EProduct -->
+					<div class="form-group">
+						<label class="col-xs-2 control-label" for="inStockNumber"
+							style="color: black;">Number in stock</label>
+						<div class="col-xs-8">
+							<input th:value="${electronicProduct.inStockNumber}"
+								type="number" name="inStockNumber" class="form-control"
+								id="inStockNumber" placeholder="Number of in-stock copies" /> <span
+								class="help-block">Number of in-stock copies</span>
+						</div>
+					</div>
+
+
+
+					<!-- status of EProduct -->
+					<div class="form-group">
+						<label class="col-xs-2 control-label" for="status"
+							style="color: black;">Status</label>
+						<div class="col-xs-8">
+							<label> <input value="true" type="radio" name="active"
+								checked="checked" /> Active
+							</label> <label><input value="false" type="radio" name="active" />
+								Inactive </label> <span class="help-block">Whether the EProduct
+								is active or inactive</span>
+						</div>
+					</div>
+
+
+					<!-- description -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="description"
+							style="color: black;">Description</label>
+						<div class="col-md-8">
+							<textarea name="description" rows="5" cols="20"
+								class="form-control" id="description"
+								th:value="${electronicProduct.description}" th:text="${electronicProduct.description}"
+								placeholder="Description"></textarea>
+							<span class="help-block">Description of the EProduct</span>
+						</div>
+					</div>
+
+					<!-- upload image -->
+					<div class="form-group">
+						<div class="col-md-2" style="margin-left: 93px;">
+							<label for="image" style="color: black;">Upload EProduct
+								image</label>
+						</div>
+						<div class="col-md-8">
+							<input id="image" type="file" name="image"
+								th:value="${electronicProduct.image}" />
+						</div>
+					</div>
+
+
+					<div class="form-group text-center">
+						<button type="submit" class="btn btn-success">Update
+							EProduct</button>
+						<a class="btn btn-danger" th:href="@{/}">Cancel</a>
+					</div>
+
+				</fieldset>
+			</form>
+		</div>
+	</div>
+
+
+	<div th:replace="common/header :: body-bottom-scripts"></div>
+</body>
+</html>

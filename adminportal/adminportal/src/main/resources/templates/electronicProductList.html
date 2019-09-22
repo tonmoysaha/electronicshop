@@ -30,7 +30,10 @@
 						<td th:text="${electronicProduct.listPrice}"></td>
 						<td th:text="${electronicProduct.ourPrice}"></td>
 						<td th:text="${electronicProduct.active}"></td>
-						<td></td>
+						<td>
+						<a th:href="@{/eproduct/electronicProductDetails?id=}+${electronicProduct.id}"><span
+								class="glyphicon glyphicon-info-sign"></span> </a>
+						</td>
 
 					</tr>
 

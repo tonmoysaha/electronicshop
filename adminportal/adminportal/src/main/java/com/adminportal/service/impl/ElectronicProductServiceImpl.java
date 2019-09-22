@@ -28,6 +28,12 @@ public class ElectronicProductServiceImpl implements ElectronicProductService {
 		return (List<ElectronicProduct>) ElectronicProductRepository.findAll();
 	}
 
+	@Override
+	public ElectronicProduct findById(Long id) {
+		// TODO Auto-generated method stub
+		return ElectronicProductRepository.findById(id).orElse(null);
+	}
+
 	
 
 }

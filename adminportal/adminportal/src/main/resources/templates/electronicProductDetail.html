@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body>
+	<div th:replace="common/header :: navbar"></div>
+	<div class="container">
+		<div>
+			<ol class="breadcrumb" style="background-color: #350f1d;">
+				<li><a th:href="@{/eproduct/electronicProductList}" style="color: white;"><i
+						class="fas fa-arrow-left"></i>Go back</a></li>
+				<li><a
+					th:href="@{/eproduct/updateElectronicProduct?id=}+${electronicProduct.id}" style="color: white;">Edit</a></li>
+			</ol>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-3">
+				<div class="panel panel-default">
+					<div class="panel-body text-center">
+						<img
+							th:src="@{/image/ElectronicProduct/}+${electronicProduct.id}+'.png'"
+							class="img=responsive" height="200px;" width="70%" />
+					</div>
+				</div>
+			</div>
+
+			<div class="col-xs-9">
+				<h3 th:text="${electronicProduct.title}"></h3>
+				<div class="row">
+					<div class="col-xs-6">
+					<p><strong>Model: </strong><span th:text ="${electronicProduct.model}"></span> </p>
+					<p><strong>Brand Name: </strong><span th:text ="${electronicProduct.brandName}"></span> </p>
+					<p><strong>Product Code: </strong><span th:text ="${electronicProduct.productCode}"></span> </p>
+					<p><strong>Category: </strong><span th:text ="${electronicProduct.category}"></span> </p>
+					<p><strong>Publication Date: </strong><span th:text ="${electronicProduct.publicationDate}"></span></p>
+					
+					</div>
+
+					<div class="col-xs-6">
+					<p><strong>Shipping Weight: </strong><span th:text ="${electronicProduct.shippingWeight}"></span> </p>
+					<p><strong>List Price: </strong><span th:text ="${electronicProduct.listPrice}"></span> </p>
+					<p><strong>Our Price: </strong><span th:text ="${electronicProduct.ourPrice}"></span> </p>
+					<p><strong>Active: </strong><span th:text ="${electronicProduct.active}"></span> </p>
+					<p><strong>In StockNumber: </strong><span th:text ="${electronicProduct.inStockNumber}"></span> </p>
+					</div>
+				</div>
+				<p><strong>Description</strong><span th:text ="${electronicProduct.description}"></span> </p>
+			</div>
+
+
+		</div>
+
+	</div>
+
+	<div th:replace="common/header :: body-bottom-scripts"></div>
+</body>
+</html>
