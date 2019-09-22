@@ -1,6 +1,7 @@
 package com.electronicshop.controller;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.UUID;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,10 +24,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.electronicshop.entity.ElectronicProduct;
 import com.electronicshop.entity.User;
 import com.electronicshop.entity.security.PasswordResetToken;
 import com.electronicshop.entity.security.Role;
 import com.electronicshop.entity.security.UserRole;
+import com.electronicshop.service.ElectronicProductService;
 import com.electronicshop.service.UserService;
 import com.electronicshop.service.impl.UserSecurityService;
 import com.electronicshop.utility.MailConstructor;
@@ -45,6 +49,9 @@ public class HomeController {
 
 	@Autowired
 	private JavaMailSender mailSender;
+	
+	@Autowired
+	private ElectronicProductService ElectronicProductService;
 
 	@RequestMapping("/")
 	public String index() {
@@ -163,5 +170,19 @@ public class HomeController {
 
 		theModel.addAttribute("classActiveEdit", true);
 		return "myProfile";
+	}
+	
+	@RequestMapping("/electronicProductShelf")
+	public String electronicProductShelf(Model model) {
+		List<ElectronicProduct> electronicProductList = ElectronicProductService.findAll();
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		UserDetails user = (UserDetails) authentication.getPrincipal();
+		
+		model.addAttribute("user", user);
+		
+		model.addAttribute("electronicProductList",electronicProductList);
+		return "electronicProductShelf";
+		
 	}
 }
