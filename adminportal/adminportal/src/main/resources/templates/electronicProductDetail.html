@@ -17,10 +17,10 @@
 		<div class="row">
 			<div class="col-xs-3">
 				<div class="panel panel-default">
-					<div class="panel-body text-center">
+					<div class="panel-body">
 						<img
 							th:src="@{/image/ElectronicProduct/}+${electronicProduct.id}+'.png'"
-							class="img=responsive" height="200px;" width="70%" />
+							class="img=responsive center-block" height="300px;" width="70%"/>
 					</div>
 				</div>
 			</div>
@@ -45,7 +45,7 @@
 					<p><strong>In StockNumber: </strong><span th:text ="${electronicProduct.inStockNumber}"></span> </p>
 					</div>
 				</div>
-				<p><strong>Description</strong><span th:text ="${electronicProduct.description}"></span> </p>
+				<p><strong>Description:</strong><span th:utext ="${electronicProduct.description}"></span> </p>
 			</div>
 
 

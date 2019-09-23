@@ -7,7 +7,7 @@
 	<div th:replace="common/header :: navbar"></div>
 	<div class="container">
 		<div class="table-responsive">
-			<table id="electronicProductsList"
+			<table id="myTable"
 				class="table table-bordered table-hover table-striped">
 				<thead>
 					<tr>
@@ -30,10 +30,9 @@
 						<td th:text="${electronicProduct.listPrice}"></td>
 						<td th:text="${electronicProduct.ourPrice}"></td>
 						<td th:text="${electronicProduct.active}"></td>
-						<td>
-						<a th:href="@{/eproduct/electronicProductDetails?id=}+${electronicProduct.id}"><span
-								class="glyphicon glyphicon-info-sign"></span> </a>
-						</td>
+						<td><a
+							th:href="@{/eproduct/electronicProductDetails?id=}+${electronicProduct.id}"><span
+								class="glyphicon glyphicon-info-sign"></span> </a></td>
 
 					</tr>
 
@@ -44,5 +43,10 @@
 	</div>
 
 	<div th:replace="common/header :: body-bottom-scripts"></div>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#myTable').DataTable();
+		});
+	</script>
 </body>
 </html>

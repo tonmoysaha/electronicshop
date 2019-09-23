@@ -10,7 +10,7 @@
 			<div class="col-xs-8">
 				<h2 class="section-headline">
 					<h2 class="section-headline">
-						<span>All ElectronicProduc</span>
+						<span>All ElectronicProducts</span>
 					</h2>
 				</h2>
 			</div>
@@ -42,30 +42,34 @@
 							<td>
 								<div th:if="${electronicProduct != null}">
 									<div class="row">
-										<div class="col-xs-3">
+										<div class="col-xs-3" style="margin-top: 14px;">
 											<a th:href="@{/electronicProductDetails?id=}+${electronicProduct.id}"><img  class="img-responsive shelf-electronicProduct"
-												th:src="#{adminPath}+@{image/ElectronicProduct/}+${electronicProduct.id}+'.png'" /> </a>
+												th:src="#{adminPath}+@{image/ElectronicProduct/}+${electronicProduct.id}+'.png'" width="100px;"/> </a>
 										</div>
 										<div class="col-xs-9">
 											<a th:href="@{/electronicProductDetails?id=}+${electronicProduct.id}"><h4 th:text="${electronicProduct.title}"></h4></a>
 											
 											<span th:text="${electronicProduct.publicationDate}"></span>
+											<br/>
 											
 											<span th:text="${electronicProduct.brandName}"></span>
-											
+											<br/>
 											<span th:text="${#strings.capitalize(electronicProduct.productCode)}"></span>
-												
-											<span style="font-size: x-large; color: #ab3208;">TK.<span
+												<br/>
+											<span style="font-size:large; color:green;">TK.<span
 												th:text="${#numbers.formatDecimal(electronicProduct.ourPrice , 0, 'COMMA', 2, 'POINT')}"></span></span>
-												
-											<span style="text-decoration: line-through;">TK.<span
+												<br/>
+											<span style="text-decoration: line-through; color: red;">TK.<span
 												th:text="${#numbers.formatDecimal(electronicProduct.listPrice ,0, 'COMMA', 2, 'POINT')}"></span></span>
-											
-											<p th:text="${#strings.abbreviate(electronicProduct.description, 500)}"></p>
+											<br/>
+											<p th:utext="${#strings.abbreviate(electronicProduct.description, 500)}"></p>
 										</div>
 										</div>
 									</div>
+									<br/>
+									<hr style="padding: 1px; background-color: #896746;"/>
 							</td>
+							
 						</tr>
 					</tbody>
 				</table>

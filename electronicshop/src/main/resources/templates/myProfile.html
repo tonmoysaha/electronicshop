@@ -115,6 +115,86 @@
 					</div>
 
 
+					<!-- Edit Order information -->
+					<div class="tab-pane fade" id="tab-2"
+						th:classappend="${classActiveOrders}? 'in active'">
+						<div class="panel-group">
+							<div class="panel panel-default" style="border: none;">
+								<div class="panel-body"
+									style="background-color: #ededed; margin-top: 20px;">
+									<ol class="breadcrumb">
+										<li class="breadcrumb-item active"><a
+											th:href="@{/listofCreditCard}"
+											th:style="${listofCreditCard}? 'color:red'">List Of
+												Credit Card</a></li>
+												
+										<li class="breadcrumb-item active"><a
+											th:href="@{/addNewCreditCard}"
+											th:style="${addNewCreditCard}? 'color:red'">Add New
+												Credit Card</a></li>
+									</ol>
+
+									<div th:if="${listofCreditCard}">
+										<form th:action="@{/setDefaultPayment}" method="post">
+											<table class="table">
+												<thead>
+													<tr>
+														<th>Default</th>
+														<th>Credit Card</th>
+														<th>Operations</th>
+													</tr>
+												</thead>
+												<tbody>
+
+													<tr th:each="userPayment : ${userPaymentlist}">
+													
+														<td><input type="radio" name="defaultUserPaymentId"
+															th:value="${userPayment.id}" th:checked="${userPayment.defaultPayment}" />
+														</td>
+														<td th:text="${userPayment.cardName}"></td>
+														<td><a
+															th:href="@{/updateCreditCard(id=${userPayment.id})}"><i
+																class="fa fa-pencil"></i></a> <a
+															th:href="@{/removeCreditCard(id=${userPayment.id})}"><i
+																class="fa fa-times"></i></a></td>
+													</tr>
+												</tbody>
+											</table>
+											<button class="btn btn-primary" type="submit">Save</button>
+										</form>
+
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Edit Billing information -->
+					<div class="tab-pane fade" id="tab-3"
+						th:classappend="${classActiveBilling}? 'in active'">
+						<div class="panel-group">
+							<div class="panel panel-default" style="border: none;">
+								<div class="panel-body"
+									style="background-color: #ededed; margin-top: 20px;"></div>
+							</div>
+						</div>
+					</div>
+
+
+					<!-- Edit Shipping information -->
+					<div class="tab-pane fade" id="tab-4"
+						th:classappend="${classActiveShipping}? 'in active'">
+						<div class="panel-group">
+							<div class="panel panel-default" style="border: none;">
+								<div class="panel-body"
+									style="background-color: #ededed; margin-top: 20px;"></div>
+							</div>
+						</div>
+					</div>
+
+
+
 				</div>
 			</div>
 		</div>

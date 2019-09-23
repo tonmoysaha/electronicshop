@@ -2,6 +2,8 @@ package com.electronicshop.controller;
 
 import java.security.Principal;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -39,6 +41,7 @@ import com.electronicshop.service.UserService;
 import com.electronicshop.service.impl.UserSecurityService;
 import com.electronicshop.utility.MailConstructor;
 import com.electronicshop.utility.SecurityUtility;
+import com.electronicshop.utility.BdContants;
 
 @Controller
 public class HomeController {
@@ -102,6 +105,7 @@ public class HomeController {
 
 		return "myAccount";
 	}
+	
 
 	@RequestMapping(value = "/newuser", method = RequestMethod.POST)
 	public String newUserPost(HttpServletRequest request, @ModelAttribute("email") String userEmail,
@@ -151,10 +155,15 @@ public class HomeController {
 		return "myAccount";
 
 	}
+	
+	
+	
 
-	@RequestMapping("/newuser")
+	@RequestMapping(value = "/newuser" , method = RequestMethod.GET)
 	public String newUser(Locale local, @RequestParam("token") String token, Model theModel) {
+		
 		PasswordResetToken passwordResetToken = userService.getPasswordResetToken(token);
+		
 		if (passwordResetToken == null) {
 			String massage = "invalid Token";
 			theModel.addAttribute("massage", massage);
@@ -173,6 +182,32 @@ public class HomeController {
 		theModel.addAttribute("classActiveEdit", true);
 		return "myProfile";
 	}
+	
+	
+	
+	@RequestMapping("/myProfile")
+	public String myProfilePage(Model model , Principal principal) {
+		String username = principal.getName();
+		
+		User user = userService.findByUsername(username);
+		
+		model.addAttribute("user",user);
+		
+		List<String> stateList = BdContants.listofStatesCode;
+		Collections.sort(stateList);
+		
+		model.addAttribute("stateList",stateList);
+		model.addAttribute("listofCreditCard", true);
+		model.addAttribute("listOfShippingAddreses", true);
+		model.addAttribute("classActiveEdit", true);
+	
+		return "myProfile";
+		
+	}
+	
+	
+	
+	
 
 	@RequestMapping("/electronicProductShelf")
 	public String electronicProductShelf(Model model) {
@@ -182,6 +217,9 @@ public class HomeController {
 
 	}
 
+	
+	
+	
 	@RequestMapping("/electronicProductDetails")
 	public String electronicProductDetails(@PathParam("id") Long id, Model model, Principal principal) {
 
