@@ -15,13 +15,13 @@ public class UserPayment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	private String type;
+	private String cardType;
 	private String cardName;
 	private String cardNumber;
 	private String expiryMonth;
 	private String expiryYear;
 	private int cvc;
-	private String holderName;
+	private String cardHolderName;
 	private boolean defaultPayment;
 	
 	@ManyToOne
@@ -39,12 +39,12 @@ public class UserPayment {
 		this.id = id;
 	}
 
-	public String getType() {
-		return type;
+	public String getCardType() {
+		return cardType;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setCardType(String cardType) {
+		this.cardType = cardType;
 	}
 
 	public String getCardName() {
@@ -87,12 +87,14 @@ public class UserPayment {
 		this.cvc = cvc;
 	}
 
-	public String getHolderName() {
-		return holderName;
+	
+
+	public String getCardHolderName() {
+		return cardHolderName;
 	}
 
-	public void setHolderName(String holderName) {
-		this.holderName = holderName;
+	public void setCardHolderName(String cardHolderName) {
+		this.cardHolderName = cardHolderName;
 	}
 
 	public boolean isDefaultPayment() {

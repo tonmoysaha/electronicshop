@@ -33,6 +33,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.electronicshop.entity.ElectronicProduct;
 import com.electronicshop.entity.User;
+import com.electronicshop.entity.UserPayment;
+import com.electronicshop.entity.UserShipping;
 import com.electronicshop.entity.security.PasswordResetToken;
 import com.electronicshop.entity.security.Role;
 import com.electronicshop.entity.security.UserRole;
@@ -192,21 +194,115 @@ public class HomeController {
 		User user = userService.findByUsername(username);
 		
 		model.addAttribute("user",user);
+		model.addAttribute("userPaymentList",user.getUserPaymentList());
+		model.addAttribute("userShippingList",user.getUserShippingList());
+		
+		UserShipping userShipping =new UserShipping();
+		model.addAttribute("userShipping",userShipping);
 		
 		List<String> stateList = BdContants.listofStatesCode;
 		Collections.sort(stateList);
-		
 		model.addAttribute("stateList",stateList);
-		model.addAttribute("listofCreditCard", true);
+		
+		
+		
+		model.addAttribute("listofCreditCards", true);
 		model.addAttribute("listOfShippingAddreses", true);
 		model.addAttribute("classActiveEdit", true);
 	
 		return "myProfile";
 		
 	}
+
+	
+	@RequestMapping("/listofCreditCard")
+	public String listofCreditCards(Model model, Principal principal, HttpServletRequest request) {
+		
+		User user = userService.findByUsername(principal.getName());
+		model.addAttribute("user",user);
+		model.addAttribute("userPaymentList",user.getUserPaymentList());
+		model.addAttribute("userShippingList",user.getUserShippingList());
+		
+		model.addAttribute("listofCreditCards", true);
+		model.addAttribute("listOfShippingAddreses", true);
+		model.addAttribute("classActiveBilling" , true);
+		
+		
+		return "myProfile";
+		
+	}
+	
+	@RequestMapping("/listOfShippingAddreses")
+	public String listOfShippingAddreses(Model model, Principal principal, HttpServletRequest request) {
+		
+		User user = userService.findByUsername(principal.getName());
+		model.addAttribute("user",user);
+		model.addAttribute("userPaymentList",user.getUserPaymentList());
+		model.addAttribute("userShippingList",user.getUserShippingList());
+		
+		model.addAttribute("listofCreditCards", true);
+		model.addAttribute("listOfShippingAddreses", true);
+		model.addAttribute("classActiveBilling" , true);
+		
+		
+		return "myProfile";
+		
+	}
 	
 	
+	@RequestMapping("/addNewCreditCard")
+	public String addNewCreditCard(Model model, Principal principal){
+		
+		User user = userService.findByUsername(principal.getName());
+		model.addAttribute("user",user);
+		
+		model.addAttribute("classActiveBilling" , true);
+		model.addAttribute("addNewCreditCard" , true);
+		model.addAttribute("listOfShippingAddreses", true);
+		
+		
+		UserPayment userPayment = new  UserPayment();
+		UserShipping userShipping = new UserShipping();
+		
+		model.addAttribute("userPayment",userPayment);
+		model.addAttribute("userShipping",userShipping);
+		
+		
+		List<String> stateList = BdContants.listofStatesCode;
+		Collections.sort(stateList);
+		model.addAttribute("stateList",stateList);
+		model.addAttribute("userPaymentList",user.getUserPaymentList());
+		model.addAttribute("userShippingList",user.getUserShippingList());
+		
+		return "myProfile";
+		
+	}
 	
+	
+	@RequestMapping("/addNewShippingAddrese")
+	public String addNewShippingAddrese(Model model, Principal principal){
+		
+		User user = userService.findByUsername(principal.getName());
+		model.addAttribute("user",user);
+		
+		model.addAttribute("classActiveShipping" , true);
+		model.addAttribute("addNewShippingAddrese" , true);
+		
+		
+		UserShipping userShipping = new UserShipping();
+		
+		model.addAttribute("userShipping",userShipping);
+		
+		
+		List<String> stateList = BdContants.listofStatesCode;
+		Collections.sort(stateList);
+		model.addAttribute("stateList",stateList);
+		model.addAttribute("userPaymentList",user.getUserPaymentList());
+		model.addAttribute("userShippingList",user.getUserShippingList());
+		
+		return "myProfile";
+		
+	}
 	
 
 	@RequestMapping("/electronicProductShelf")
