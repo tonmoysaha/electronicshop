@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.electronicshop.entity.User;
 import com.electronicshop.entity.UserBilling;
 import com.electronicshop.entity.UserPayment;
+import com.electronicshop.entity.UserShipping;
 import com.electronicshop.entity.security.PasswordResetToken;
 import com.electronicshop.entity.security.UserRole;
 import com.electronicshop.repository.PasswordResetTokenRepository;
@@ -115,6 +116,16 @@ public class UserServiceImpl implements UserService {
 			}
 			
 		}
+		
+	}
+
+	@Override
+	public void updateUserShipping(UserShipping userShipping, User user) {
+		// TODO Auto-generated method stub
+		userShipping.setUser(user);
+		userShipping.setDefaultShippingAddress(true);
+		user.getUserShippingList().add(userShipping);
+		save(user);
 		
 	}
 

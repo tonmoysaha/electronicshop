@@ -42,6 +42,7 @@ import com.electronicshop.entity.security.UserRole;
 import com.electronicshop.service.ElectronicProductService;
 import com.electronicshop.service.UserPaymentService;
 import com.electronicshop.service.UserService;
+import com.electronicshop.service.UserShippingService;
 import com.electronicshop.service.impl.UserSecurityService;
 import com.electronicshop.utility.MailConstructor;
 import com.electronicshop.utility.SecurityUtility;
@@ -67,6 +68,9 @@ public class HomeController {
 
 	@Autowired
 	private UserPaymentService userPaymentService;
+	
+	@Autowired
+	private UserShippingService userShippingService;
 
 	@RequestMapping("/")
 	public String index() {
@@ -363,7 +367,7 @@ public class HomeController {
 
 		model.addAttribute("listofCreditCards", true);
 		model.addAttribute("listOfShippingAddreses", true);
-		model.addAttribute("classActiveBilling", true);
+		model.addAttribute("classActiveShipping", true);
 
 		return "myProfile";
 
@@ -371,7 +375,7 @@ public class HomeController {
 	
 	
 	@RequestMapping(value = "/addNewShippingAddress" , method = RequestMethod.GET)
-	public String addNewShippingAddrese(Model model, Principal principal) {
+	public String addNewShippingAddresePage(Model model, Principal principal) {
 
 		User user = userService.findByUsername(principal.getName());
 		model.addAttribute("user", user);
@@ -392,6 +396,91 @@ public class HomeController {
 		return "myProfile";
 
 	}
+	
+	@RequestMapping(value = "/addNewShippingAddress" , method = RequestMethod.POST)
+	public String addNewShippingAddrese(@ModelAttribute("userShipping") UserShipping userShipping, Model model, Principal principal) {
+
+		User user = userService.findByUsername(principal.getName());
+		
+		
+		userService.updateUserShipping(userShipping,user);
+
+		model.addAttribute("user", user);
+		model.addAttribute("classActiveShipping", true);
+		model.addAttribute("listOfShippingAddreses", true);
+		model.addAttribute("userShippingList", user.getUserShippingList());
+		
+
+		return "myProfile";
+
+	}
+	
+	@RequestMapping("/updateUserShipping")
+	public String updateNewShippingAddrese(@ModelAttribute("id") Long userShippingId, Model model, Principal principal) {
+
+		User user = userService.findByUsername(principal.getName());
+		
+		UserShipping userShipping =userShippingService.findById(userShippingId);
+		
+		if (user.getId() != userShipping.getUser().getId()) {
+			return "badRequest";
+		}else {
+			userService.updateUserShipping(userShipping,user);
+			
+			List<String> stateList = BdContants.listofStatesCode;
+			Collections.sort(stateList);
+			
+			
+			model.addAttribute("stateList", stateList);
+			model.addAttribute("user", user);
+			model.addAttribute("userShipping",userShipping);
+			model.addAttribute("userShippingList", user.getUserShippingList());
+			
+			model.addAttribute("classActiveShipping", true);
+			
+			model.addAttribute("addNewShippingAddress", true);
+			
+			
+
+			return "myProfile";
+
+		}
+		
+	}
+	
+	@RequestMapping(value = "/setDefaultShippingAddress" , method = RequestMethod.POST)
+	public String setDefaultShippingAddress(@ModelAttribute("defaultUserShippingAddressId") Long defaultUserShippingAddressId, Model model,Principal principal) {
+		
+		User user = userService.findByUsername(principal.getName());
+		userShippingService.setDefaultUserShipping(defaultUserShippingAddressId,user);
+		
+		model.addAttribute("user", user);
+	
+		model.addAttribute("userShippingList", user.getUserShippingList());
+		
+		model.addAttribute("classActiveShipping", true);
+	
+		model.addAttribute("listOfShippingAddreses", true);
+		return "myProfile";
+	}
+	
+	@RequestMapping("/removeUserShipping")
+	public String removeUserShippingAddress(@ModelAttribute("id") Long userShippingId, Model model, Principal principal) {
+		
+		User user = userService.findByUsername(principal.getName());
+		
+		userShippingService.deleteById(userShippingId);
+	
+		model.addAttribute("user", user);
+		
+		model.addAttribute("userShippingList", user.getUserShippingList());
+		
+		model.addAttribute("classActiveShipping", true);
+	
+		model.addAttribute("listOfShippingAddreses", true);
+		return "myProfile";
+	}
+	
 
 	@RequestMapping("/electronicProductShelf")
 	public String electronicProductShelf(Model model) {

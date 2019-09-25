@@ -5,6 +5,7 @@ import java.util.Set;
 import com.electronicshop.entity.User;
 import com.electronicshop.entity.UserBilling;
 import com.electronicshop.entity.UserPayment;
+import com.electronicshop.entity.UserShipping;
 import com.electronicshop.entity.security.PasswordResetToken;
 import com.electronicshop.entity.security.UserRole;
 
@@ -25,5 +26,7 @@ public interface UserService {
 	void updateUserBilling(UserBilling userBilling,UserPayment userPayment , User user);
 
 	void setUserDefaultPayment(Long defaultUserPaymentId, User user);
+
+	void updateUserShipping(UserShipping userShipping, User user);
 
 }
