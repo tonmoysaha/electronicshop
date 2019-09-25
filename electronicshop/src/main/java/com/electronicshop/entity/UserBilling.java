@@ -24,6 +24,8 @@ public class UserBilling {
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	private UserPayment userPayment;
+	
+	
 
 	public Long getId() {
 		return id;
@@ -105,6 +107,10 @@ public class UserBilling {
 	public void setUserPayment(UserPayment userPayment) {
 		this.userPayment = userPayment;
 	}
+
+
+	
+	
 	
 	
 	
