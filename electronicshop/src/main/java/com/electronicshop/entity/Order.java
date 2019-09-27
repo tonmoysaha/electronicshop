@@ -40,6 +40,9 @@ public class Order {
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	private Payment payment;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	private BillingAddress billingAddress;
 
 	@ManyToOne
 	private User user;
