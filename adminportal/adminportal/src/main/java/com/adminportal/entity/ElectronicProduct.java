@@ -1,13 +1,18 @@
 package com.adminportal.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
 import org.springframework.web.multipart.MultipartFile;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class ElectronicProduct {
@@ -30,6 +35,11 @@ public class ElectronicProduct {
 	@Column(columnDefinition = "text")
 	private String description;
 	private int inStockNumber;
+	
+	@OneToMany(mappedBy = "electronicProduct")
+	@JsonIgnore
+	private List<ElectronicProductToCartItem> electronicProductToCartItemList;
+	
 	
 	@Transient
 	private MultipartFile image;
@@ -145,6 +155,14 @@ public class ElectronicProduct {
 
 	public void setPublicationDate(String publicationDate) {
 		this.publicationDate = publicationDate;
+	}
+
+	public List<ElectronicProductToCartItem> getElectronicProductToCartItemList() {
+		return electronicProductToCartItemList;
+	}
+
+	public void setElectronicProductToCartItemList(List<ElectronicProductToCartItem> electronicProductToCartItemList) {
+		this.electronicProductToCartItemList = electronicProductToCartItemList;
 	}
 	
 	
