@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
+<head th:replace="common/header :: common-header" />
+<body>
+	<div th:replace="common/header :: navbar"></div>
+
+	<div class="container">
+		<div class="row" style="margin-bottom: -100px;">
+			<div class="col-xs-8">
+				<h2 class="section-headline">
+					<span>ElectronicProduct Details</span>
+				</h2>
+			</div>
+			<div class="col-xs-4">
+				<img src="/image/images.png" class="img-responsive" />
+			</div>
+		</div>
+
+		<img class="img-responsive" src="/image/wood.png"
+			style="margin-top: -75px;" />
+
+		<div class="row" style="margin-top: 10px;">
+			<div class="col-xs-12">
+				<div class="row">
+					<div class="col-xs-6 text-left">
+						<a th:href="@{/electronicProductShelf}" class="btn brn-primary">Continue
+							Shopping</a>
+					</div>
+					<div class="col-xs-6">
+						<a th:href="@{/checkout(id=${shoppingCart.id})}"
+							class="btn btn-primary">Check Out</a>
+					</div>
+					<br>
+
+					<div th:if="${notEnoughStock}" class="alert alert-warning">
+						oops , some of the product don't have enough stock.please update
+						product quantity</div>
+					<div th:if="${emptycart}" class="alert alert-warning">oops ,
+						your cart is empty.see if you can find what you like int the
+						electronic product self and add them to cart</div>
+					<div class="row">
+						<div class="col-xs-8">
+							<h4>Electronic Products</h4>
+						</div>
+						<div class="col-xs-2">
+							<h4>Price</h4>
+						</div>
+						<div class="col-xs-2">
+							<h4>Quantity</h4>
+						</div>
+						
+						<!-- ******Display product in cart**** -->
+
+						<div class="row" th:each="cartItem : ${cartItemList}">
+							<form th:action="@{/shoppingCart/updateCartItem}">
+								<hr />
+
+								<div class="col-xs-2">
+									<a
+										href="@{/electronicProductDetails(id=${cartItem.electronicProduct.id})}">
+										<img
+										th:src="#{adminpath}+@{image/ElectronicProduct/}+${cartItem.electronicProduct.id}+'.png'"
+										class="img-responsive">
+									</a>
+
+									<p th:if="${cartItem.electronicProduct.id&gt;10}"
+										style="color: green;">
+										<span th:text="${cartItem.electronicProduct.inStockNumber}"></span>In
+										Stock
+									</p>
+									<p
+										th:if="${cartItem.electronicProduct.id&lt;10 and cartItem.electronicProduct.id&gt;0}"
+										style="color: green;">
+										Only <span
+											th:text="${cartItem.electronicProduct.inStockNumber}"></span>Stock
+										available
+									</p>
+									<p th:if="${cartItem.electronicProduct.id == 0}"
+										style="color: red;">Unavailable Product</p>
+								</div>
+
+
+								<div class="col-xs-2">
+									<h5 style="color: gray; font-size: large;">
+										Tk.<span th:text="${cartItem.electronicProduct.ourPrice}"
+											th:style="${cartItem.electronicProduct.inStockNumber}==0? 'text-decoration: line-through' : ''"></span>
+									</h5>
+								</div>
+
+								<div class="col-xs-2">
+									<input hidden="hidden" name="id" th:value="${cartItem.id}" />
+									<input th:id="${cartItem.id}" th:name="qty"
+										th:value="${cartItem.qty}"
+										th:disabled="${cartItem.electronicProduct.inStockNumber==0}"
+										class="form-control cartItemqty" />
+									<button style="display: none;"
+										th:id="'update_item'+${cartItem.id}" type="submit"
+										class="btn btn-warning btn-xs">Update</button>
+								</div>
+
+							</form>
+
+						</div>
+
+						<div class="row">
+							<h4 class="col-xs-12 text-right">
+								<strong style="font-size: larger;">Total Price(<span
+									th:text:="${#lists.size(cartItemList)}"></span>Items):
+								</strong><span style="color: #db3208; font-size: large;">Tk.<span th:text="${shoppingCart.GrandTotal}"></span></span>
+							</h4>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<p style="">
+	<div th:replace="common/header :: body-bottom-scripts"></div>
+</body>
+</html>
+
