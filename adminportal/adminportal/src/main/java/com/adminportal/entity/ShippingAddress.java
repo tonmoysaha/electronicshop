@@ -1,11 +1,14 @@
 package com.adminportal.entity;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+@Entity
 public class ShippingAddress {
 	
 	@Id
@@ -21,8 +24,8 @@ public class ShippingAddress {
 	private String shippingAddressZipCode;
 	
 	@OneToOne
-    private Order order;
-
+	private Order order;
+	
 	public Long getId() {
 		return id;
 	}
@@ -102,6 +105,10 @@ public class ShippingAddress {
 	public void setOrder(Order order) {
 		this.order = order;
 	}
+
+	
+
+	
 
 	
 
