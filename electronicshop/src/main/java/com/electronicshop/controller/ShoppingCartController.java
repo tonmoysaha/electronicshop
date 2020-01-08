@@ -12,6 +12,7 @@ import com.electronicshop.entity.CartItem;
 import com.electronicshop.entity.ShoppingCart;
 import com.electronicshop.entity.User;
 import com.electronicshop.service.CartItemService;
+import com.electronicshop.service.ShoppingCartService;
 import com.electronicshop.service.UserService;
 
 @Controller
@@ -20,6 +21,9 @@ public class ShoppingCartController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private ShoppingCartService shoppingCartService;
 	
 	@Autowired
 	private CartItemService cartItemService;
@@ -33,12 +37,12 @@ public class ShoppingCartController {
 		
 		List<CartItem> cartItemList = cartItemService.findByShoppingCart(shoppingCart);
 		
-		ShoppingCartService.updateShoppingcart(shoppingCart);
+		shoppingCartService.updateShoppingcart(shoppingCart);
 		
 		model.addAttribute("shoppingCart");
 		model.addAttribute("cartItemList", cartItemList);
 		
-		return null;
+		return "shoppingCart";
 		
 	}
 

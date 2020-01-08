@@ -100,15 +100,4 @@ public class CartItem {
 		this.order = order;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 }

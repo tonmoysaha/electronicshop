@@ -1,5 +1,6 @@
 package com.electronicshop.service.impl;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,21 @@ public class CartItemServiceImpl implements CartItemService {
 	public List<CartItem> findByShoppingCart(ShoppingCart shoppingCart) {
 		// TODO Auto-generated method stub
 		return cartItemRepository.findByshoppingCart(shoppingCart);
+	}
+
+	@Override
+	public CartItem updateCartItem(CartItem cartItem) {
+		// TODO Agenerateduto- method stub
+		BigDecimal bigDecimal = new BigDecimal(cartItem.getElectronicProduct().getOurPrice()).multiply(new BigDecimal(cartItem.getQty()));
+
+		bigDecimal= bigDecimal.setScale(2, BigDecimal.ROUND_HALF_UP);
+		
+		cartItem.setSubTotal(bigDecimal);
+		
+		cartItemRepository.save(cartItem);
+		
+		return cartItem;
+		
 	}
 
 }

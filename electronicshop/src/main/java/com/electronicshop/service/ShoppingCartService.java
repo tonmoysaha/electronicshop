@@ -4,5 +4,5 @@ import com.electronicshop.entity.ShoppingCart;
 
 public interface ShoppingCartService {
 
-	void updateShoppingcart(ShoppingCart shoppingCart);
+	ShoppingCart updateShoppingcart(ShoppingCart shoppingCart);
 }
