@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.electronicshop.entity.CartItem;
 import com.electronicshop.entity.ShoppingCart;
 import com.electronicshop.entity.User;
+import com.electronicshop.service.CartItemService;
 import com.electronicshop.service.UserService;
 
 @Controller
@@ -19,6 +20,9 @@ public class ShoppingCartController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private CartItemService cartItemService;
 	
 	@RequestMapping("/cart")
 	public String shoppingCart(Model model, Principal principal) {
